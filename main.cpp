@@ -40,23 +40,35 @@ void Print(const GameOfLife& g) {
 using namespace std;
 
 int main() {
+
   // Lê os dados.
   int iterations;
   cin >> iterations;
+
   int line, column;
   cin >> line >> column;
+
   GameOfLife g(line, column);
-  while (cin >> line) {
-    cin >> column;
-    g.Enliven(line, column);
-  }
-  Print(g);
-    
-  // Executa o número esperado de iterações.
-  while (iterations > 0) {
-    g++;
+
+  try {
+
+    while (cin >> line) {
+      cin >> column;
+      g.Enliven(line, column);
+    }
     Print(g);
-    std::this_thread::sleep_for(10ms);
-    iterations--;
+      
+    // Executa o número esperado de iterações.
+    while (iterations > 0) {
+      g++;
+      Print(g);
+      std::this_thread::sleep_for(10ms);
+      iterations--;
+    }
+
+  } catch (GameOfLife::InvalidCellException e) {
+
+    cerr << "As coordenadas [" << e.line << ", " << e.column << "] não são de uma célula válida" << endl;
+    return 1;
   }
 }

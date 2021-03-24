@@ -7,7 +7,9 @@ using std::vector;
 
 // Simula a execução de cada iteração do Jogo da Vida de Cownaway. 
 class GameOfLife {
+
  public:
+ 
   struct InvalidCellException {
     int line;  // Linha da célula inválida.|
     int column;  // Coluna da célula inválida.|
